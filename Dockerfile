@@ -2,6 +2,11 @@
 FROM ghcr.io/astral-sh/uv:0.6.17-debian AS build
 WORKDIR /app
 
+# The ROCm versions that this image is based of.
+# Always write this down as major.minor.patch
+ENV ROCM_VERSION=6.4.0
+ENV ROCM_VERSION_APT=${ROCM_VERSION%.0}
+
 ENV UV_COMPILE_BYTECODE=1 UV_LOCKED=1
 
 RUN --mount=type=bind,source=uv.lock,target=uv.lock \
