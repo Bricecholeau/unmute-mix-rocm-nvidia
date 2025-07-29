@@ -8,7 +8,7 @@ from pathlib import Path
 def get_all_uuids() -> list[str]:
     return (
         subprocess.check_output(
-            ["nvidia-smi", "--query-gpu=uuid", "--format=csv,noheader"],
+            ["rocm-smi", "--query-gpu=uuid", "--format=csv,noheader"],
             stderr=subprocess.STDOUT,
             text=True,
         )
@@ -34,21 +34,21 @@ def setup_docker_config():
     daemon_config_file.write_text(json_dumps(daemon_config))
 
 
-def setup_nvidia_docker_config():
-    nvidia_container_config_file = Path("/etc/nvidia-container-runtime/config.toml")
-    nvidia_container_config = nvidia_container_config_file.read_text()
-    line = '#swarm-resource = "DOCKER_RESOURCE_GPU"'
-    if line in nvidia_container_config:
-        print("uncommenting", line)
-        nvidia_container_config = nvidia_container_config.replace(
-            line, line.removeprefix("#")
-        )
-        print("New nvidia-container config:\n", nvidia_container_config)
-        nvidia_container_config_file.write_text(nvidia_container_config)
-    else:
-        print(
-            "Line not found in nvidia-container config, did you already uncomment it?"
-        )
+###def setup_nvidia_docker_config():
+###    nvidia_container_config_file = Path("/etc/nvidia-container-runtime/config.toml")
+###    nvidia_container_config = nvidia_container_config_file.read_text()
+###    line = '#swarm-resource = "DOCKER_RESOURCE_GPU"'
+###    if line in nvidia_container_config:
+###        print("uncommenting", line)
+###        nvidia_container_config = nvidia_container_config.replace(
+###            line, line.removeprefix("#")
+###        )
+###        print("New nvidia-container config:\n", nvidia_container_config)
+###        nvidia_container_config_file.write_text(nvidia_container_config)
+###    else:
+###        print(
+###            "Line not found in nvidia-container config, did you already uncomment it?"
+###        )
 
 
 def restarting_docker():
