@@ -1,4 +1,6 @@
 # See NOTE comments for places to modify.
+# Modified for Rocm
+# Status: 1st test
 services:
   traefik:
     image: traefik:v3.3.1
@@ -66,13 +68,13 @@ services:
       - ./volumes/uv-cache:/root/.cache/uv
       - /tmp/models/:/models
       - ./volumes/tts-logs:/logs
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: all
-              capabilities: [gpu]
+     devices:
+      - /dev/kfd
+      - /dev/dri
+    security_opt:
+      - seccomp=unconfined
+
+
 
   stt:
     image: moshi-server:latest
@@ -88,13 +90,7 @@ services:
       - ./volumes/uv-cache:/root/.cache/uv
       - /tmp/models/:/models
       - ./volumes/stt-logs:/logs
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: all
-              capabilities: [gpu]
+    
 
   llm:
     image: vllm/vllm-openai:v0.9.1
@@ -116,13 +112,12 @@ services:
       - ./volumes/vllm-cache:/root/.cache/vllm
     environment:
       - HUGGING_FACE_HUB_TOKEN=$HUGGING_FACE_HUB_TOKEN
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: all
-              capabilities: [gpu]
+    devices:
+      - /dev/kfd
+      - /dev/dri
+    security_opt:
+      - seccomp=unconfined
+
 
 networks:
   default:
