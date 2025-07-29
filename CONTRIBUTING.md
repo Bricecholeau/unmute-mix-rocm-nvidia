@@ -1,4 +1,4 @@
-# Contributing to Unmute
+# Contributing to Unmute already? Give AMD ROCm users a chance to try https://kyutai.org/ works on Linux platforms !
 
 ## Pull Requests
 
