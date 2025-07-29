@@ -1,6 +1,7 @@
-# Unmute
+# Unmute trial for AMD ROCm users
+## No claims of any success so far ;)
 
-Try it out at [Unmute.sh](https://unmute.sh)!
+Try it out at [Unmute.sh](https://unmute.sh)! Nice reactive discussions nicely appreciated !
 
 Unmute is a system that allows text LLMs to listen and speak by wrapping them in Kyutai's Text-to-speech and Speech-to-text models.
 The speech-to-text transcribes what the user says, the LLM generates a response in text, and the text-to-speech reads it out loud.
