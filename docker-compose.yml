@@ -93,7 +93,7 @@ services:
     
 
   llm:
-    image: vllm/vllm-openai:v0.9.1
+    image: rocm/vllm-dev:nightly_upstream_v0.9.1_20250612
     command:
       [
         # NOTE: Change the LLM here if you want.
